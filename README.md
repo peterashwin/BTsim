@@ -14,3 +14,6 @@ This graphical user interface requires installation of Qt Creator which can be f
 
 Please note that the program uses qcustomplot, and one needs to add a line (below) to the .pro file
 QT       += printsupport
+
+# Help with using the code
+You can find brief descriptions of features of the programme from /helpdocs/content.htm
