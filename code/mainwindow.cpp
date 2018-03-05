@@ -986,7 +986,7 @@ void MainWindow::createMenus()
 
     helpMenu=menuBar()->addMenu(tr("Help"));
     helpMenu->addAction(aboutAct);
-    helpMenu->addAction(helpAct);
+    //helpMenu->addAction(helpAct);
 }
 
 
