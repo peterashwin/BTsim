@@ -1,0 +1,3 @@
+The bundled transport help enables the user to select and view existing
+files.
+
