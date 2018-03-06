@@ -19,10 +19,10 @@ Particle::Particle(const Particle & copyparticle){
 }
 
 Particle & Particle::operator =(const Particle & otherparticle){
-     index=otherparticle.index;
-     type=otherparticle.type;
-     location=otherparticle.location;
-     labeled=otherparticle.labeled;
+    index=otherparticle.index;
+    type=otherparticle.type;
+    location=otherparticle.location;
+    labeled=otherparticle.labeled;
 }
 
 void Particle::moveTo(const std::vector<int> & newLocation, const int newType){

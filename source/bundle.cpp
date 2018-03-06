@@ -172,21 +172,21 @@ void Bundle::addRunLength(Particle &particle){
 }
 
 void Bundle::addRunLengthVale(Particle & particle){
-       particle.labeled=false;
-       int ind=0;
-       while(ind<static_cast<int>(runLength.size()) && runLength[ind][0]!=particle.index){
-           ind++;
-       }
-       if (int(runLength[ind][1])>particle.location[2])
-           runLenghValues.insert(runLenghValues.end(),int(runLength[ind][1])-particle.location[2]);
-       else if (int(runLength[ind][1])==particle.location[2]){
-           cout<<" no run length";
-       }
-       else{
-           cout<<"wrong paris of particles!";
-           system("pause");
-       }
-       runLength.erase(runLength.begin()+ind);
+    particle.labeled=false;
+    int ind=0;
+    while(ind<static_cast<int>(runLength.size()) && runLength[ind][0]!=particle.index){
+        ind++;
+    }
+    if (int(runLength[ind][1])>particle.location[2])
+        runLenghValues.insert(runLenghValues.end(),int(runLength[ind][1])-particle.location[2]);
+    else if (int(runLength[ind][1])==particle.location[2]){
+        cout<<" no run length";
+    }
+    else{
+        cout<<"wrong paris of particles!";
+        system("pause");
+    }
+    runLength.erase(runLength.begin()+ind);
 }
 
 void Bundle::assignParticle(Particle &newParticle, int *particleParameters){
@@ -203,7 +203,7 @@ void Bundle::bundledPosition(std::vector<int> & pp, const int site_1,const int s
     temp.insert(temp.end(),getTrack(track_1)->minusEndLocations.begin(),getTrack(track_1)->minusEndLocations.end());
 
     if (getTrack(track_1)->plusEndLocations.size()==1)
-    temp.insert(temp.end(),getTrack(track_1)->plusEndLocations.begin(),getTrack(track_1)->plusEndLocations.end());
+        temp.insert(temp.end(),getTrack(track_1)->plusEndLocations.begin(),getTrack(track_1)->plusEndLocations.end());
     else {
         std::vector<int> vplus=getTrack(track_1)->plusEndLocations;
         sort(vplus.begin(),vplus.end());
@@ -215,7 +215,7 @@ void Bundle::bundledPosition(std::vector<int> & pp, const int site_1,const int s
     std::vector<int> temp2;
     temp2.insert(temp2.end(),getTrack(track_2)->minusEndLocations.begin(),getTrack(track_2)->minusEndLocations.end());
     if (getTrack(track_2)->plusEndLocations.size()==1)
-    temp2.insert(temp2.end(),getTrack(track_2)->plusEndLocations.begin(),getTrack(track_2)->plusEndLocations.end());
+        temp2.insert(temp2.end(),getTrack(track_2)->plusEndLocations.begin(),getTrack(track_2)->plusEndLocations.end());
     else {
         std::vector<int> vplus=getTrack(track_2)->plusEndLocations;
         sort(vplus.begin(),vplus.end());
@@ -303,20 +303,20 @@ void Bundle::defaultInitializeState(){
         for (int j=0;j<static_cast<int>(bundleState[track].istate.size());j++){
             for (int i=static_cast<int>(bundleState[track].istate[j].size())-1;i>=0;--i){
                 if (N_temp<particleNum && bundleState[track].istate[j][i].unblocked){
-                     bundleState[track].istate[j][i].occupiedNum[0]=1;
-                     Particle particle;
-                     bool labeled=false;
-                     int a[6]={N_temp,labeled,track,j,i+getXCoordinate(track),0};
-                     assignParticle(particle,a);
-                     listOfParticles.insert(listOfParticles.end(),particle);
-                     bundleState[track].istate[j][i].occupiedParticle.clear();
-                     bundleState[track].istate[j][i].occupiedParticle.push_back(particle);
-                     N_temp+=1;
-                     if (typeNum>1){
-                         for (int ty=1;ty<typeNum;ty++){
-                             bundleState[track].istate[j][i].occupiedNum[ty]=0;
-                         }
-                     }
+                    bundleState[track].istate[j][i].occupiedNum[0]=1;
+                    Particle particle;
+                    bool labeled=false;
+                    int a[6]={N_temp,labeled,track,j,i+getXCoordinate(track),0};
+                    assignParticle(particle,a);
+                    listOfParticles.insert(listOfParticles.end(),particle);
+                    bundleState[track].istate[j][i].occupiedParticle.clear();
+                    bundleState[track].istate[j][i].occupiedParticle.push_back(particle);
+                    N_temp+=1;
+                    if (typeNum>1){
+                        for (int ty=1;ty<typeNum;ty++){
+                            bundleState[track].istate[j][i].occupiedNum[ty]=0;
+                        }
+                    }
                 }
                 else {
                     for (int ty=0;ty<typeNum;ty++)
@@ -329,20 +329,20 @@ void Bundle::defaultInitializeState(){
 }
 
 double Bundle::getAvailableLane(const int track, const int site){
-     int xco=getXCoordinate(track);
-     double m=0;
-     for (int i=0;i<static_cast<int>(getTrack(track)->istate.size());i++){
-         if (getTrack(track)->istate[i][site-xco].unblocked)  m++;
-     }
-     return m;
+    int xco=getXCoordinate(track);
+    double m=0;
+    for (int i=0;i<static_cast<int>(getTrack(track)->istate.size());i++){
+        if (getTrack(track)->istate[i][site-xco].unblocked)  m++;
+    }
+    return m;
 }
 
 
 void Bundle::getBundleRegion(std::vector<int> &temp){
     temp.clear();
     for (int track=0;track<trackNum;track++){
-    temp.insert(temp.end(),getTrack(track)->minusEndLocations.begin(),getTrack(track)->minusEndLocations.end());
-    temp.insert(temp.end(),getTrack(track)->plusEndLocations.begin(),getTrack(track)->plusEndLocations.end());
+        temp.insert(temp.end(),getTrack(track)->minusEndLocations.begin(),getTrack(track)->minusEndLocations.end());
+        temp.insert(temp.end(),getTrack(track)->plusEndLocations.begin(),getTrack(track)->plusEndLocations.end());
     }
     sort(temp.begin(),temp.end());
     temp.erase(temp.begin());
@@ -395,9 +395,9 @@ int Bundle::getParticleIndex(){
     if (particleIndexes.empty())
         return particleNum;
     else{
-       int a=particleIndexes[0];
-       particleIndexes.erase(particleIndexes.begin());
-       return a;
+        int a=particleIndexes[0];
+        particleIndexes.erase(particleIndexes.begin());
+        return a;
     }
 }
 
@@ -554,9 +554,9 @@ int Bundle::gillespieUpdate(long * idum, double & t){
 
             Particle & particle=C1->occupiedParticle[i];
             if (flagRunLengthEnd || flagRunLengthBundle){  //REMOVE exit particles
-               if (particle.labeled==true){
-                   removeRunLength(particle);
-               }
+                if (particle.labeled==true){
+                    removeRunLength(particle);
+                }
             }
             if(flagPause && particle.labeled) removePause(particle);
             C1->occupiedParticle.erase(C1->occupiedParticle.begin()+i);
@@ -607,15 +607,15 @@ int Bundle::gillespieUpdate(long * idum, double & t){
 
 
 void Bundle::initializeBundle(){
-        bundleState.clear();
-        vector<int> trackwidth(trackNum,laneNum);// give lane number of each track;
-        vector<int> tracklength(trackNum,siteNum);// give site number of each track;
-        for (int i=0;i<trackNum;i++){
-            Track temp(tracklength[i],trackwidth[i]);
-            bundleState.insert(bundleState.end(),temp);
-        }
-        trackwidth.clear();
-        tracklength.clear();
+    bundleState.clear();
+    vector<int> trackwidth(trackNum,laneNum);// give lane number of each track;
+    vector<int> tracklength(trackNum,siteNum);// give site number of each track;
+    for (int i=0;i<trackNum;i++){
+        Track temp(tracklength[i],trackwidth[i]);
+        bundleState.insert(bundleState.end(),temp);
+    }
+    trackwidth.clear();
+    tracklength.clear();
 }
 
 void Bundle::initializeBundleVar(){
@@ -646,93 +646,93 @@ void Bundle::initializeRateVector(){
 
 
 void Bundle::initializeTransitionRates(){
-        pLoad=p_load;
-        velocity.clear();
-        runLengthBundled.clear();
-        runLengthUnbundled.clear();
-        transitionRates.forward.clear();
-        transitionRates.forwardEnd.clear();
-        transitionRates.laneChange.clear();
-        transitionRates.trackSwitchAtEnd.clear();
-        transitionRates.trackSwitchAtInner.clear();
-        transitionRates.turning.clear();
-        transitionRates.boundaryIn.clear();
-        transitionRates.boundaryOut.clear();
+    pLoad=p_load;
+    velocity.clear();
+    runLengthBundled.clear();
+    runLengthUnbundled.clear();
+    transitionRates.forward.clear();
+    transitionRates.forwardEnd.clear();
+    transitionRates.laneChange.clear();
+    transitionRates.trackSwitchAtEnd.clear();
+    transitionRates.trackSwitchAtInner.clear();
+    transitionRates.turning.clear();
+    transitionRates.boundaryIn.clear();
+    transitionRates.boundaryOut.clear();
 
-        velocity.insert(velocity.end(),v_k);
-        velocity.insert(velocity.end(),v_d);
-        runLengthUnbundled.insert(runLengthUnbundled.end(),M_k);
-        runLengthUnbundled.insert(runLengthUnbundled.end(),M_d);
-        runLengthBundled.insert(runLengthBundled.end(),M_k);
-        runLengthBundled.insert(runLengthBundled.end(),M_d);
-        double p_d=v_d/stepSize-2*lane_d;
-        double p_k=v_k/stepSize;
+    velocity.insert(velocity.end(),v_k);
+    velocity.insert(velocity.end(),v_d);
+    runLengthUnbundled.insert(runLengthUnbundled.end(),M_k);
+    runLengthUnbundled.insert(runLengthUnbundled.end(),M_d);
+    runLengthBundled.insert(runLengthBundled.end(),M_k);
+    runLengthBundled.insert(runLengthBundled.end(),M_d);
+    double p_d=v_d/stepSize-2*lane_d;
+    double p_k=v_k/stepSize;
 
-        transitionRates.forward.insert(transitionRates.forward.end(),p_k);
-        if (p_d>0)
-            transitionRates.forward.insert(transitionRates.forward.end(),p_d);
-        else
-            transitionRates.forward.insert(transitionRates.forward.end(),0);
-        transitionRates.forward.insert(transitionRates.forward.end(),0);// crosing minus end on the same track
+    transitionRates.forward.insert(transitionRates.forward.end(),p_k);
+    if (p_d>0)
+        transitionRates.forward.insert(transitionRates.forward.end(),p_d);
+    else
+        transitionRates.forward.insert(transitionRates.forward.end(),0);
+    transitionRates.forward.insert(transitionRates.forward.end(),0);// crosing minus end on the same track
 
-        transitionRates.turning.insert(transitionRates.turning.end(),w_k);//notbundled
-        transitionRates.turning.insert(transitionRates.turning.end(),w_k);//isbundled
-        transitionRates.turning.insert(transitionRates.turning.end(),w_d);
-        transitionRates.turning.insert(transitionRates.turning.end(),w_d);//isbundled
-        transitionRates.turning.insert(transitionRates.turning.end(),p_mturn1);//inhomogeneous at minus ends of its own track
-        transitionRates.turning.insert(transitionRates.turning.end(),p_mturn2);//inhomogeneous at minus ends of another track
+    transitionRates.turning.insert(transitionRates.turning.end(),w_k);//notbundled
+    transitionRates.turning.insert(transitionRates.turning.end(),w_k);//isbundled
+    transitionRates.turning.insert(transitionRates.turning.end(),w_d);
+    transitionRates.turning.insert(transitionRates.turning.end(),w_d);//isbundled
+    transitionRates.turning.insert(transitionRates.turning.end(),p_mturn1);//inhomogeneous at minus ends of its own track
+    transitionRates.turning.insert(transitionRates.turning.end(),p_mturn2);//inhomogeneous at minus ends of another track
 
-        //27_11_14 add inhomogeneous turning when meeting plus ends of another MT for dynein
-        transitionRates.turning.insert(transitionRates.turning.end(),p_pturn2);
+    //27_11_14 add inhomogeneous turning when meeting plus ends of another MT for dynein
+    transitionRates.turning.insert(transitionRates.turning.end(),p_pturn2);
 
 
-        transitionRates.laneChange.insert(transitionRates.laneChange.end(),lane_k);
-        transitionRates.laneChange.insert(transitionRates.laneChange.end(),p_k/2);//blocked;
-        if (p_d>0)
-            transitionRates.laneChange.insert(transitionRates.laneChange.end(),lane_d);
-        else
-            transitionRates.laneChange.insert(transitionRates.laneChange.end(),v_d/stepSize/2);
-        transitionRates.laneChange.insert(transitionRates.laneChange.end(),v_d/stepSize/2);//blocked;
+    transitionRates.laneChange.insert(transitionRates.laneChange.end(),lane_k);
+    transitionRates.laneChange.insert(transitionRates.laneChange.end(),p_k/2);//blocked;
+    if (p_d>0)
+        transitionRates.laneChange.insert(transitionRates.laneChange.end(),lane_d);
+    else
+        transitionRates.laneChange.insert(transitionRates.laneChange.end(),v_d/stepSize/2);
+    transitionRates.laneChange.insert(transitionRates.laneChange.end(),v_d/stepSize/2);//blocked;
 
-        transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),0);//kinesin unibundle into
-        transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),0); //E2  kinesin unibundle bundle leave & type change
-        transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),sek);//E1 kinesin unibundle bundle leave & no type chane
-        transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),0);// kinesin bipolar bundle into
-        transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),0);//E4 kinesin bipolar bundle leave & type change
-        transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),sek);//E3 kinesin bipolar bundle leave & no type chane
-        transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),0);//dynein to another track with the same directon
-        transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),sed);//E6 D-K
-        transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),0);//E7 D-D
-        transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),se);//E5 se bipolar D-K
-        transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),sed);//E8 q_2*v_d/hs);// D-K
-        transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),0);//E9 D-D
+    transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),0);//kinesin unibundle into
+    transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),0); //E2  kinesin unibundle bundle leave & type change
+    transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),sek);//E1 kinesin unibundle bundle leave & no type chane
+    transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),0);// kinesin bipolar bundle into
+    transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),0);//E4 kinesin bipolar bundle leave & type change
+    transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),sek);//E3 kinesin bipolar bundle leave & no type chane
+    transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),0);//dynein to another track with the same directon
+    transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),sed);//E6 D-K
+    transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),0);//E7 D-D
+    transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),se);//E5 se bipolar D-K
+    transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),sed);//E8 q_2*v_d/hs);// D-K
+    transitionRates.trackSwitchAtEnd.insert(transitionRates.trackSwitchAtEnd.end(),0);//E9 D-D
 
-        transitionRates.trackSwitchAtInner.insert(transitionRates.trackSwitchAtInner.end(),0);//K-D//
-        transitionRates.trackSwitchAtInner.insert(transitionRates.trackSwitchAtInner.end(),si);//K-K;//
-        transitionRates.trackSwitchAtInner.insert(transitionRates.trackSwitchAtInner.end(),si);//D-K;/
-        transitionRates.trackSwitchAtInner.insert(transitionRates.trackSwitchAtInner.end(),0);//D-D;/
-       // transitionRates.forwardEnd.insert(transitionRates.forwardEnd.end(),0);//dynein cross minus end on the same track
-        transitionRates.forwardEnd.insert(transitionRates.forwardEnd.end(),1);//kinesin cross a minus end of another track  unipolar bundle
-        transitionRates.forwardEnd.insert(transitionRates.forwardEnd.end(),1);//kinesin cross a plus end of another track  bipolar
-        transitionRates.forwardEnd.insert(transitionRates.forwardEnd.end(),1);//dynein cross a plus end of another track unipolar bundle
-        transitionRates.forwardEnd.insert(transitionRates.forwardEnd.end(),q);//dynein cross a minus end of another track bipolar
-        // forwardEnd rate will be multiplied by v/hs; switch rate will be multiplied by 1/lane numbers
-        vector<double> alpha_k(trackNum,0);
-        vector<double> alpha_d(trackNum,0);
-        vector<double> beta_k(trackNum,0);
-        vector<double> beta_d(trackNum,0);
+    transitionRates.trackSwitchAtInner.insert(transitionRates.trackSwitchAtInner.end(),0);//K-D//
+    transitionRates.trackSwitchAtInner.insert(transitionRates.trackSwitchAtInner.end(),si);//K-K;//
+    transitionRates.trackSwitchAtInner.insert(transitionRates.trackSwitchAtInner.end(),si);//D-K;/
+    transitionRates.trackSwitchAtInner.insert(transitionRates.trackSwitchAtInner.end(),0);//D-D;/
+    // transitionRates.forwardEnd.insert(transitionRates.forwardEnd.end(),0);//dynein cross minus end on the same track
+    transitionRates.forwardEnd.insert(transitionRates.forwardEnd.end(),1);//kinesin cross a minus end of another track  unipolar bundle
+    transitionRates.forwardEnd.insert(transitionRates.forwardEnd.end(),1);//kinesin cross a plus end of another track  bipolar
+    transitionRates.forwardEnd.insert(transitionRates.forwardEnd.end(),1);//dynein cross a plus end of another track unipolar bundle
+    transitionRates.forwardEnd.insert(transitionRates.forwardEnd.end(),q);//dynein cross a minus end of another track bipolar
+    // forwardEnd rate will be multiplied by v/hs; switch rate will be multiplied by 1/lane numbers
+    vector<double> alpha_k(trackNum,0);
+    vector<double> alpha_d(trackNum,0);
+    vector<double> beta_k(trackNum,0);
+    vector<double> beta_d(trackNum,0);
 
-        transitionRates.boundaryIn.insert(transitionRates.boundaryIn.end(),alpha_k);
-        transitionRates.boundaryIn.insert(transitionRates.boundaryIn.end(),alpha_d);
-        transitionRates.boundaryOut.insert(transitionRates.boundaryOut.end(),beta_k);
-        transitionRates.boundaryOut.insert(transitionRates.boundaryOut.end(),beta_d);
+    transitionRates.boundaryIn.insert(transitionRates.boundaryIn.end(),alpha_k);
+    transitionRates.boundaryIn.insert(transitionRates.boundaryIn.end(),alpha_d);
+    transitionRates.boundaryOut.insert(transitionRates.boundaryOut.end(),beta_k);
+    transitionRates.boundaryOut.insert(transitionRates.boundaryOut.end(),beta_d);
 }
 
 bool Bundle::isBundled(const int site){
     vector<int> temp;
     for (int i=0;i<trackNum;i++){
-         temp.insert(temp.end(),getTrack(i)->minusEndLocations.begin(),getTrack(i)->minusEndLocations.end());
-         temp.insert(temp.end(),getTrack(i)->plusEndLocations.begin(),getTrack(i)->plusEndLocations.end());
+        temp.insert(temp.end(),getTrack(i)->minusEndLocations.begin(),getTrack(i)->minusEndLocations.end());
+        temp.insert(temp.end(),getTrack(i)->plusEndLocations.begin(),getTrack(i)->plusEndLocations.end());
     }
     sort(temp.begin(),temp.end());
     if (site>=temp[1] && site<temp[temp.size()-2]){
@@ -746,39 +746,39 @@ bool Bundle::isBundled(const int site){
 void Bundle::kymographRecord(const int time_size, bool current){
     vector<int> temp;
     
-   if(current){
-      for (int i=0;i<maxLength;i++){
-        int k=0;
-        int d=0;
-        for (int tr=0;tr<trackNum;tr++){
-            int xco=getXCoordinate(tr);
-            int la=0;
-            if (i>=xco && i<xco+bundleState[tr].length){
-                while(k==0 && la<static_cast<int>(bundleState[tr].istate.size())){
-                       //   cout<<bundleState[tr].length-bundleState[tr].istate[0].size()<<" "<<tr<<" "<<" "<<la<<" "<<i-xco<<"    ";
-                    k=bundleState[tr].istate[la][i-xco].occupiedNum[0];
-                    if (k>0){
-                        for (int ty=0;ty<static_cast<int>(getTrack(tr)->istate[la][i-xco].occupiedParticle.size());ty++)
-                            k=k+10*getTrack(tr)->istate[la][i-xco].occupiedParticle[ty].labeled;
+    if(current){
+        for (int i=0;i<maxLength;i++){
+            int k=0;
+            int d=0;
+            for (int tr=0;tr<trackNum;tr++){
+                int xco=getXCoordinate(tr);
+                int la=0;
+                if (i>=xco && i<xco+bundleState[tr].length){
+                    while(k==0 && la<static_cast<int>(bundleState[tr].istate.size())){
+                        //   cout<<bundleState[tr].length-bundleState[tr].istate[0].size()<<" "<<tr<<" "<<" "<<la<<" "<<i-xco<<"    ";
+                        k=bundleState[tr].istate[la][i-xco].occupiedNum[0];
+                        if (k>0){
+                            for (int ty=0;ty<static_cast<int>(getTrack(tr)->istate[la][i-xco].occupiedParticle.size());ty++)
+                                k=k+10*getTrack(tr)->istate[la][i-xco].occupiedParticle[ty].labeled;
+                        }
+                        la++;
                     }
-                    la++;
-                }              
-               la=0;
-                while(d==0 && la<static_cast<int>(bundleState[tr].istate.size())){
-                   d=2*bundleState[tr].istate[la][i-xco].occupiedNum[1];
-                   if (d>0){
-                       for (int ty=0;ty<static_cast<int>(getTrack(tr)->istate[la][i-xco].occupiedParticle.size());ty++)
-                           d=d+2*10*getTrack(tr)->istate[la][i-xco].occupiedParticle[ty].labeled;
-                   }
-                   la++;
-               }
+                    la=0;
+                    while(d==0 && la<static_cast<int>(bundleState[tr].istate.size())){
+                        d=2*bundleState[tr].istate[la][i-xco].occupiedNum[1];
+                        if (d>0){
+                            for (int ty=0;ty<static_cast<int>(getTrack(tr)->istate[la][i-xco].occupiedParticle.size());ty++)
+                                d=d+2*10*getTrack(tr)->istate[la][i-xco].occupiedParticle[ty].labeled;
+                        }
+                        la++;
+                    }
 
+                }
             }
+            temp.insert(temp.end(),k+d);
         }
-        temp.insert(temp.end(),k+d);
-      }
-      vkymograph.insert(vkymograph.begin(),temp);
-      temp.clear();
+        vkymograph.insert(vkymograph.begin(),temp);
+        temp.clear();
     }
     else{
         if (vkymograph.size()>0){
@@ -913,37 +913,37 @@ void Bundle::tipendInitializeState(){
         //track=bundleState.size()-track;
         //for (int i=50;i>=0;--i){ // for starting in the middle for specific movies
         for (int i=static_cast<int>(bundleState[track].istate[0].size())-1;i>=0;--i){
-          for (int j=0;j<static_cast<int>(bundleState[track].istate.size());j++){
-            int xco=getTrack(track)->xCoordinate;
-           // if ((track==3 || track==2 || track==4) && (i+xco<=50 && ((i+xco>48) || i+xco>47 & track==4)) && N_temp<particleNum && bundleState[track].istate[j][i].unblocked){// for starting in the middle for specific movies
-            if (track==tipTrack && N_temp<particleNum && bundleState[track].istate[j][i].unblocked){
-                int xi=maxLength;//static_cast<int>(bundleState[track].istate[0].size())-1;
-                int ty;
-                if (getTrack(track)->getOrientation(xi)==0){
-                bundleState[track].istate[j][i].occupiedNum[1]=0;//1;
-                bundleState[track].istate[j][i].occupiedNum[0]=1;//0;
-                ty=0;//1;
+            for (int j=0;j<static_cast<int>(bundleState[track].istate.size());j++){
+                int xco=getTrack(track)->xCoordinate;
+                // if ((track==3 || track==2 || track==4) && (i+xco<=50 && ((i+xco>48) || i+xco>47 & track==4)) && N_temp<particleNum && bundleState[track].istate[j][i].unblocked){// for starting in the middle for specific movies
+                if (track==tipTrack && N_temp<particleNum && bundleState[track].istate[j][i].unblocked){
+                    int xi=maxLength;//static_cast<int>(bundleState[track].istate[0].size())-1;
+                    int ty;
+                    if (getTrack(track)->getOrientation(xi)==0){
+                        bundleState[track].istate[j][i].occupiedNum[1]=0;//1;
+                        bundleState[track].istate[j][i].occupiedNum[0]=1;//0;
+                        ty=0;//1;
+                    }
+                    else{
+                        bundleState[track].istate[j][i].occupiedNum[1]=0;
+                        bundleState[track].istate[j][i].occupiedNum[0]=1;
+                        ty=0;
+                    }
+                    Particle particle;
+                    bool labeled=false;
+                    int a[6]={N_temp,labeled,track,j,i+getXCoordinate(track),ty};
+                    assignParticle(particle,a);
+                    listOfParticles.insert(listOfParticles.end(),particle);
+                    bundleState[track].istate[j][i].occupiedParticle.clear();
+                    bundleState[track].istate[j][i].occupiedParticle.push_back(particle);
+                    N_temp++;
                 }
-                else{
+                else {
                     bundleState[track].istate[j][i].occupiedNum[1]=0;
-                    bundleState[track].istate[j][i].occupiedNum[0]=1;
-                    ty=0;
+                    bundleState[track].istate[j][i].occupiedNum[0]=0;
+                    getTrack(track)->istate[j][i].occupiedParticle.clear();
                 }
-                Particle particle;
-                bool labeled=false;
-                int a[6]={N_temp,labeled,track,j,i+getXCoordinate(track),ty};
-                assignParticle(particle,a);
-                listOfParticles.insert(listOfParticles.end(),particle);
-                bundleState[track].istate[j][i].occupiedParticle.clear();
-                bundleState[track].istate[j][i].occupiedParticle.push_back(particle);
-                N_temp++;
             }
-            else {
-                bundleState[track].istate[j][i].occupiedNum[1]=0;
-                bundleState[track].istate[j][i].occupiedNum[0]=0;
-                getTrack(track)->istate[j][i].occupiedParticle.clear();
-            }
-          }
         }
     }
 
@@ -957,15 +957,15 @@ void Bundle::randomInitializeState(long *idum){
     colocalization.clear();
     pauses.clear();
     for (int track=0;track<static_cast<int>(bundleState.size());track++){
-            for (int lane=0;lane<static_cast<int>(bundleState[track].istate.size());lane++){
-                for (int site=0;site<static_cast<int>(bundleState[track].istate[lane].size());site++){
-                    for (int ty=0;ty<static_cast<int>(bundleState[track].istate[lane][site].occupiedNum.size());ty++){
-                         bundleState[track].istate[lane][site].occupiedNum[ty]=0;
-                    }
-                    getTrack(track)->istate[lane][site].occupiedParticle.clear();
+        for (int lane=0;lane<static_cast<int>(bundleState[track].istate.size());lane++){
+            for (int site=0;site<static_cast<int>(bundleState[track].istate[lane].size());site++){
+                for (int ty=0;ty<static_cast<int>(bundleState[track].istate[lane][site].occupiedNum.size());ty++){
+                    bundleState[track].istate[lane][site].occupiedNum[ty]=0;
                 }
+                getTrack(track)->istate[lane][site].occupiedParticle.clear();
             }
-     }
+        }
+    }
     while(N_temp<particleNum){
         int track,lane,site,ty;
         double r=ran2(idum);
@@ -1013,7 +1013,7 @@ void Bundle::recordPause(const Particle & particle){
             pauses[i].insert(pauses[i].end(),t);
         }
         else if(i<static_cast<int>(pauses.size()))
-                pauses[i][1]=t;
+            pauses[i][1]=t;
         else{
             double a[2]={double(particle.index),t};
             std::vector<double>temp(a,a+2);
@@ -1043,7 +1043,7 @@ void Bundle::removeUnaccessibleRegion(){
             std::vector<int>temp=getTrack(i)->unaccessibleRegion[k];
             for (int y=temp[0];y<=temp[1];y++){
                 for (int x=xco;x<len;x++){
-                //for (int x=max(temp[2]-2,xco);x<=min(temp[3]+2,len);x++){
+                    //for (int x=max(temp[2]-2,xco);x<=min(temp[3]+2,len);x++){
                     getTrack(i)->istate[y][x-xco].unblocked=true;
                 }
             }
@@ -1064,11 +1064,11 @@ void Bundle::setParticleLabel(Particle & particle, bool & labeled){
 void Bundle::setRandomBlockages(const int n, long *idum){
     int N_temp=0;
     for (int track=0;track<static_cast<int>(bundleState.size());track++){
-            for (int lane=0;lane<static_cast<int>(bundleState[track].istate.size());lane++){
-                for (int site=0;site<static_cast<int>(bundleState[track].istate[lane].size());site++){
-                      bundleState[track].istate[lane][site].unblocked=true;
-                }
+        for (int lane=0;lane<static_cast<int>(bundleState[track].istate.size());lane++){
+            for (int site=0;site<static_cast<int>(bundleState[track].istate[lane].size());site++){
+                bundleState[track].istate[lane][site].unblocked=true;
             }
+        }
     }
     if (unaccessibility){
         setUnaccessibleRegion();
@@ -1115,61 +1115,61 @@ void Bundle::setUnaccessibleRegion(){
             int xend=min(xco1+len1,xco2+len2)-1;
             // check intersection with previous set regions
             if (xend>=xbegin){
-          //  std::vector<std::vector<int> > intersect1,intersect2;
-            std::vector<int> vlane1,vlane2;
-            for (int k=0;k<static_cast<int>(getTrack(i)->unaccessibleRegion.size());k++){
-                std::vector<std::vector<int> > temp=getTrack(i)->unaccessibleRegion;
-                int x1=max(xbegin,temp[k][2]);
-                int x2=min(xend,temp[k][3]);
-                if (x2>=x1){
-                   // intersect1.insert(intersect1.end(),temp[k]);
-                    vlane1.insert(vlane1.end(),temp[k][0]);
+                //  std::vector<std::vector<int> > intersect1,intersect2;
+                std::vector<int> vlane1,vlane2;
+                for (int k=0;k<static_cast<int>(getTrack(i)->unaccessibleRegion.size());k++){
+                    std::vector<std::vector<int> > temp=getTrack(i)->unaccessibleRegion;
+                    int x1=max(xbegin,temp[k][2]);
+                    int x2=min(xend,temp[k][3]);
+                    if (x2>=x1){
+                        // intersect1.insert(intersect1.end(),temp[k]);
+                        vlane1.insert(vlane1.end(),temp[k][0]);
+                    }
                 }
-            }
-            if(find(vlane1.begin(),vlane1.end(),l1)==vlane1.end()){
-                int reg[4]={l1,l2,xbegin,xend};
-                std::vector<int> vreg(reg,reg+4);
-                getTrack(i)->unaccessibleRegion.insert(getTrack(i)->unaccessibleRegion.end(),vreg);
-            }
-            else if(find(vlane1.begin(),vlane1.end(),l2)==vlane1.end()){
-                int reg[4]={l2,l3,xbegin,xend};
-                std::vector<int> vreg(reg,reg+4);
-                getTrack(i)->unaccessibleRegion.insert(getTrack(i)->unaccessibleRegion.end(),vreg);
-            }
-            else if(find(vlane1.begin(),vlane1.end(),l0)==vlane1.end()){
-                int reg[4]={l0,l1,xbegin,xend};
-                std::vector<int> vreg(reg,reg+4);
-                getTrack(i)->unaccessibleRegion.insert(getTrack(i)->unaccessibleRegion.end(),vreg);
-            }
+                if(find(vlane1.begin(),vlane1.end(),l1)==vlane1.end()){
+                    int reg[4]={l1,l2,xbegin,xend};
+                    std::vector<int> vreg(reg,reg+4);
+                    getTrack(i)->unaccessibleRegion.insert(getTrack(i)->unaccessibleRegion.end(),vreg);
+                }
+                else if(find(vlane1.begin(),vlane1.end(),l2)==vlane1.end()){
+                    int reg[4]={l2,l3,xbegin,xend};
+                    std::vector<int> vreg(reg,reg+4);
+                    getTrack(i)->unaccessibleRegion.insert(getTrack(i)->unaccessibleRegion.end(),vreg);
+                }
+                else if(find(vlane1.begin(),vlane1.end(),l0)==vlane1.end()){
+                    int reg[4]={l0,l1,xbegin,xend};
+                    std::vector<int> vreg(reg,reg+4);
+                    getTrack(i)->unaccessibleRegion.insert(getTrack(i)->unaccessibleRegion.end(),vreg);
+                }
 
-            for (int k=0;k<static_cast<int>(getTrack(j)->unaccessibleRegion.size());k++){
-                std::vector<std::vector<int> > temp=getTrack(j)->unaccessibleRegion;
-                int x1=max(xbegin,temp[k][2]);
-                int x2=min(xend,temp[k][3]);
-                if (x2>=x1){
-                  //  intersect2.insert(intersect2.end(),temp[k]);
-                    vlane2.insert(vlane2.end(),temp[k][0]);
+                for (int k=0;k<static_cast<int>(getTrack(j)->unaccessibleRegion.size());k++){
+                    std::vector<std::vector<int> > temp=getTrack(j)->unaccessibleRegion;
+                    int x1=max(xbegin,temp[k][2]);
+                    int x2=min(xend,temp[k][3]);
+                    if (x2>=x1){
+                        //  intersect2.insert(intersect2.end(),temp[k]);
+                        vlane2.insert(vlane2.end(),temp[k][0]);
+                    }
                 }
-            }
-            if(find(vlane2.begin(),vlane2.end(),l5)==vlane2.end()){
-                int reg[4]={l5,l6,xbegin,xend};
-                std::vector<int> vreg(reg,reg+4);
-                getTrack(j)->unaccessibleRegion.insert(getTrack(j)->unaccessibleRegion.end(),vreg);
-            }
-            else if(find(vlane2.begin(),vlane2.end(),l6)==vlane2.end()){
-                int reg[4]={l6,l7,xbegin,xend};
-                std::vector<int> vreg(reg,reg+4);
-                getTrack(j)->unaccessibleRegion.insert(getTrack(j)->unaccessibleRegion.end(),vreg);
-            }
-            else if(find(vlane2.begin(),vlane2.end(),l7)==vlane2.end()){
-                int reg[4]={l4,l5,xbegin,xend};
-                std::vector<int> vreg(reg,reg+4);
-                getTrack(j)->unaccessibleRegion.insert(getTrack(j)->unaccessibleRegion.end(),vreg);
-            }
+                if(find(vlane2.begin(),vlane2.end(),l5)==vlane2.end()){
+                    int reg[4]={l5,l6,xbegin,xend};
+                    std::vector<int> vreg(reg,reg+4);
+                    getTrack(j)->unaccessibleRegion.insert(getTrack(j)->unaccessibleRegion.end(),vreg);
+                }
+                else if(find(vlane2.begin(),vlane2.end(),l6)==vlane2.end()){
+                    int reg[4]={l6,l7,xbegin,xend};
+                    std::vector<int> vreg(reg,reg+4);
+                    getTrack(j)->unaccessibleRegion.insert(getTrack(j)->unaccessibleRegion.end(),vreg);
+                }
+                else if(find(vlane2.begin(),vlane2.end(),l7)==vlane2.end()){
+                    int reg[4]={l4,l5,xbegin,xend};
+                    std::vector<int> vreg(reg,reg+4);
+                    getTrack(j)->unaccessibleRegion.insert(getTrack(j)->unaccessibleRegion.end(),vreg);
+                }
             }
         }
     }
-  /*  if (trackNum>6){
+    /*  if (trackNum>6){
     // manual corrections for eg_13 copy.txt
     getTrack(3)->unaccessibleRegion[3][0]=7;
     getTrack(3)->unaccessibleRegion[3][1]=9;
@@ -1195,10 +1195,10 @@ void Bundle::setRandomBundleGeometry(std::vector<std::vector<int> > & randBundle
         int xmin=plus[0];
         int xmax=plus[np-1];
         for (int i=0;i<static_cast<int>(plus.size());i++)
-           plus[i]=int(double(plus[i]-xmin)/double(xmax-xmin)*100.0/stepSize);
+            plus[i]=int(double(plus[i]-xmin)/double(xmax-xmin)*100.0/stepSize);
         plus[np-1]=100.0/stepSize+1;
         for (int i=0;i<static_cast<int>(minus.size());i++)
-           minus[i]=int(double(minus[i]-xmin)*100.0/stepSize/double(xmax-xmin));
+            minus[i]=int(double(minus[i]-xmin)*100.0/stepSize/double(xmax-xmin));
 
         temp.clear();
         temp.insert(temp.end(),plus.begin(),plus.end());
@@ -1235,7 +1235,7 @@ void Bundle::setRandomBundleGeometry(std::vector<std::vector<int> > & randBundle
     }
 
     //std::sort(minus.begin(),minus.end());
-   // it = std::unique(minus.begin(), minus.end());//minus has been changed
+    // it = std::unique(minus.begin(), minus.end());//minus has been changed
     //int nm=perm.size()-addm.size();//int(std::distance(minus.begin(),it));
     do {
         distri.clear();
@@ -1279,7 +1279,7 @@ void Bundle::setRandomBundleGeometry(std::vector<std::vector<int> > & randBundle
 
         }
 
-      /* std::vector<std::vector<int> > MTs;
+        /* std::vector<std::vector<int> > MTs;
         MTs.insert(MTs.end(),plus);
         MTs.insert(MTs.end(),perm);
         int MT[2];
@@ -1309,11 +1309,11 @@ void Bundle::setRandomBundleGeometry(std::vector<std::vector<int> > & randBundle
 
 
     if (MINUS.size()>0){
-       randBundle.insert(randBundle.end(),plus);
-       int kk=int(ran2(idum)*MINUS.size());
-       randBundle.insert(randBundle.end(),MINUS[kk]);
+        randBundle.insert(randBundle.end(),plus);
+        int kk=int(ran2(idum)*MINUS.size());
+        randBundle.insert(randBundle.end(),MINUS[kk]);
     }
-   // counts=counts+1;
+    // counts=counts+1;
 
 
 }
@@ -1337,11 +1337,11 @@ void Bundle::generatePMends(std::vector<int> & minus,std::vector<int> & plus,lon
         x0=100-int(floor(x));
         if (r2<=p/cg){
             // plus.insert(plus.end(),x0);
-             std::vector<int>::iterator it=find(plus.begin(),plus.end(),x0);
-             if (it==plus.end())
-                 plus.insert(plus.end(),x0);
-             i=plus.size();
-             i=i+1;
+            std::vector<int>::iterator it=find(plus.begin(),plus.end(),x0);
+            if (it==plus.end())
+                plus.insert(plus.end(),x0);
+            i=plus.size();
+            i=i+1;
         }
     }
     std::sort(plus.begin(),plus.end());
@@ -1374,7 +1374,7 @@ void Bundle::setUnaccessibleBlockage(){
         for (int j=0;j<static_cast<int>(temp.size());j++){
             for (int y=temp[j][0];y<=temp[j][1];y++){
                 for (int x=temp[j][2];x<=temp[j][3];x++)
-                        getTrack(i)->istate[y][x-xco].unblocked=false;
+                    getTrack(i)->istate[y][x-xco].unblocked=false;
             }
         }
         std::vector<std::vector<int> >intsec;
@@ -1431,10 +1431,10 @@ void Bundle::setUnaccessibleBlockage(){
             int xx1=x;
             int xx2=x;
             while (xx1>=xco && !(getTrack(i)->istate[l1-1][xx1-xco].unblocked)){
-                    xx1--;
+                xx1--;
             }
             while (xx2>=xco && !(getTrack(i)->istate[l2+1][xx2-xco].unblocked)){
-                    xx2--;
+                xx2--;
             }
             if (min(xx1,xx2)>=xco){
                 for (int m=x-1;m>=min(xx1,xx2);m--){
@@ -1443,16 +1443,16 @@ void Bundle::setUnaccessibleBlockage(){
                 }
             }
             int d=(l2-l1);
-                for (int m=0;m<d/2;m++){
-                    int x1=min(xx1,xx2)-m-1;
-                    if (x1>=xco){
-                        int y1=temp[j][0]+m+1;
-                        int y2=temp[j][1]-m-1;
-                        for (int y=y1;y<=y2;y++)
-                           getTrack(i)->istate[y][x1-xco].unblocked=false;
-                    }
+            for (int m=0;m<d/2;m++){
+                int x1=min(xx1,xx2)-m-1;
+                if (x1>=xco){
+                    int y1=temp[j][0]+m+1;
+                    int y2=temp[j][1]-m-1;
+                    for (int y=y1;y<=y2;y++)
+                        getTrack(i)->istate[y][x1-xco].unblocked=false;
                 }
             }
+        }
 
         // right end
         open.clear();
@@ -1507,10 +1507,10 @@ void Bundle::setUnaccessibleBlockage(){
             int xx1=x;
             int xx2=x;
             while (xx1<xco+len && !(getTrack(i)->istate[l1-1][xx1-xco].unblocked)){
-                    xx1++;
+                xx1++;
             }
             while (xx2<xco+len && !(getTrack(i)->istate[l2+1][xx2-xco].unblocked)){
-                    xx2++;
+                xx2++;
             }
             if (max(xx1,xx2)<xco+len){
                 for (int m=x+1;m<=max(xx1,xx2);m++){
@@ -1525,10 +1525,10 @@ void Bundle::setUnaccessibleBlockage(){
                     int y1=temp[j][0]+m+1;
                     int y2=temp[j][1]-m-1;
                     for (int y=y1;y<=y2;y++)
-                       getTrack(i)->istate[y][x1-xco].unblocked=false;
+                        getTrack(i)->istate[y][x1-xco].unblocked=false;
                 }
             }
-            }
+        }
 
     }
 }
@@ -1538,30 +1538,30 @@ void Bundle::sumCurrent(const int n){
     int x_coor1=bundleState[temp_1[0]].xCoordinate;
     int mlen=getTrack(temp_1[0])->length+x_coor1;
     int ty_to_move=rate[n].typeToMove;
-   // int ty_to_be=rate[n].typeToBe;
+    // int ty_to_be=rate[n].typeToBe;
     if(temp_1[2]>=x_coor1 &&  temp_1[2]<mlen){
-            if (temp_2[2]!=temp_1[2]){
-                int tr=0;
-                int wid=0;
-                while(tr<temp_1[0]){
-                     wid=wid+getTrack(tr)->width;
-                     tr++;
-                }
-                currentSum[ty_to_move][wid+temp_1[1]][temp_1[2]]++;
+        if (temp_2[2]!=temp_1[2]){
+            int tr=0;
+            int wid=0;
+            while(tr<temp_1[0]){
+                wid=wid+getTrack(tr)->width;
+                tr++;
             }
+            currentSum[ty_to_move][wid+temp_1[1]][temp_1[2]]++;
+        }
     }
 }
 
 void Bundle::sumColocalize(){
     if (colocalization.size()==0){
-              colocalization.resize(2);
-              for (int i=0;i<2;i++)
-              colocalization[i].resize(maxLength);
+        colocalization.resize(2);
+        for (int i=0;i<2;i++)
+            colocalization[i].resize(maxLength);
     }
     for (int i=0;i<static_cast<int>(listOfParticles.size());i++){
         std::vector<int> loc=listOfParticles[i].location;
         if (!loc.empty() && listOfParticles[i].labeled){
-           // int w=getHeight(loc[0],loc[1]);
+            // int w=getHeight(loc[0],loc[1]);
             colocalization[0][loc[2]]++;
             if (listOfParticles[i].type==1)
                 colocalization[1][loc[2]]++;
@@ -1574,12 +1574,12 @@ void Bundle::sumColocalize(){
 
 void Bundle::sumState(const int n){
     if (denSum.size()==0){
-          denSum.resize(typeNum);
-          for (int ty=0;ty<typeNum;ty++){
-              denSum[ty].resize(maxWidth);
-              for (int j=0;j<maxWidth;j++)
-                  denSum[ty][j].resize(maxLength);
-          }
+        denSum.resize(typeNum);
+        for (int ty=0;ty<typeNum;ty++){
+            denSum[ty].resize(maxWidth);
+            for (int j=0;j<maxWidth;j++)
+                denSum[ty][j].resize(maxLength);
+        }
     }
     vector<int> temp_1=rate[n].loc1;
     vector<int> temp_2=rate[n].loc2;
@@ -1590,33 +1590,33 @@ void Bundle::sumState(const int n){
     Unit* C1=getUnit(temp_1[0],temp_1[1],temp_1[2]);
     Unit* C2=getUnit(temp_2[0],temp_2[1],temp_2[2]);
     if (temp_1[2]==x_coor1-1 || temp_1[2]==getTrack(temp_1[0])->length+x_coor1){
-            nstate[temp_2[0]][ty_to_be][temp_2[1]][temp_2[2]]+=1;
-            if (nstate[temp_2[0]][ty_to_be][temp_2[1]][temp_2[2]]!=C2->occupiedNum[ty_to_be])
-                cout<<"wrong injec"<<endl;
+        nstate[temp_2[0]][ty_to_be][temp_2[1]][temp_2[2]]+=1;
+        if (nstate[temp_2[0]][ty_to_be][temp_2[1]][temp_2[2]]!=C2->occupiedNum[ty_to_be])
+            cout<<"wrong injec"<<endl;
     }
     else if(temp_2[2]==x_coor2-1 || temp_2[2]==getTrack(temp_2[0])->length+x_coor2){//exit
-            nstate[temp_1[0]][ty_to_move][temp_1[1]][temp_1[2]]-=1;
-            if (nstate[temp_1[0]][ty_to_move][temp_1[1]][temp_1[2]]!=C1->occupiedNum[ty_to_move])
-                cout<<"wrong exit"<<endl;
+        nstate[temp_1[0]][ty_to_move][temp_1[1]][temp_1[2]]-=1;
+        if (nstate[temp_1[0]][ty_to_move][temp_1[1]][temp_1[2]]!=C1->occupiedNum[ty_to_move])
+            cout<<"wrong exit"<<endl;
     }
     else{
-            nstate[temp_1[0]][ty_to_move][temp_1[1]][temp_1[2]]-=1;
-            nstate[temp_2[0]][ty_to_be][temp_2[1]][temp_2[2]]+=1;
-            //error message
-            if (nstate[temp_2[0]][ty_to_be][temp_2[1]][temp_2[2]]!=C2->occupiedNum[ty_to_be])
-                cout<<"wrong in type to be"<<endl;
-            if (nstate[temp_1[0]][ty_to_move][temp_1[1]][temp_1[2]]!=C1->occupiedNum[ty_to_move])
-                cout<<"wrong in type to move"<<endl;
+        nstate[temp_1[0]][ty_to_move][temp_1[1]][temp_1[2]]-=1;
+        nstate[temp_2[0]][ty_to_be][temp_2[1]][temp_2[2]]+=1;
+        //error message
+        if (nstate[temp_2[0]][ty_to_be][temp_2[1]][temp_2[2]]!=C2->occupiedNum[ty_to_be])
+            cout<<"wrong in type to be"<<endl;
+        if (nstate[temp_1[0]][ty_to_move][temp_1[1]][temp_1[2]]!=C1->occupiedNum[ty_to_move])
+            cout<<"wrong in type to move"<<endl;
     }
-        for (int ty=0;ty<typeNum;ty++){
-            int y_co=0;
-            for (int track=0;track<trackNum;track++){
-                for (vector<vector<int> >::size_type y=0;y<bundleState[track].istate.size();y++){
-                    transform(nstate[track][ty][y].begin(),nstate[track][ty][y].end(),denSum[ty][y_co].begin(),denSum[ty][y_co].begin(),op_densum);
-                    y_co++;
-                }
+    for (int ty=0;ty<typeNum;ty++){
+        int y_co=0;
+        for (int track=0;track<trackNum;track++){
+            for (vector<vector<int> >::size_type y=0;y<bundleState[track].istate.size();y++){
+                transform(nstate[track][ty][y].begin(),nstate[track][ty][y].end(),denSum[ty][y_co].begin(),denSum[ty][y_co].begin(),op_densum);
+                y_co++;
             }
         }
+    }
 }
 
 
@@ -1682,27 +1682,27 @@ void Bundle::updateRunLength(const std::vector<int> & temp_1, const std::vector<
             //if (temp_1[2]==temp_2[2] && particle.labeled==true)// original
             //if (ty_to_be!=ty_to_move && temp_1[2]==temp_2[2] && particle.labeled==true){ modify 04_02_14 CP
             if (particle.type!=ty_to_move && particle.labeled==true) // modified to look at run length by dynein only  07/02/2018
-             addRunLengthVale(particle);
+                addRunLengthVale(particle);
             //only relabel dyneins at the tip
             else if (temp_2[2]>=labelRegion[0] && temp_2[2]<labelRegion[1] && particle.labeled==false){
                 int track=getTipTrack();
                 int xi=maxLength;//bundleState[track].istate[0].size()-1;
                 if ( (particle.type==1 && getTrack(track)->getOrientation(xi)==0) ||  (particle.type==0 && getTrack(track)->getOrientation(xi)==1) )
-                addRunLength(particle);
+                    addRunLength(particle);
             }
         }
         else if (flagRunLengthBundle){
             std::vector<int>region;
             getBundleRegion(region);
             if (temp_1[2]==temp_2[2] && particle.labeled==true)
-            //if (ty_to_be!=ty_to_move && temp_1[2]==temp_2[2] && particle.labeled==true){ modify 04_02_14 CP
-              addRunLengthVale(particle);
+                //if (ty_to_be!=ty_to_move && temp_1[2]==temp_2[2] && particle.labeled==true){ modify 04_02_14 CP
+                addRunLengthVale(particle);
             //only relabel dyneins at the tip
             else if (temp_2[2]>=labelRegion[0] && temp_2[2]<labelRegion[1] &&  particle.labeled==false){
                 int track=getTipTrack();
                 int xi=maxLength;//bundleState[track].istate[0].size()-1;
                 if ( (particle.type==1 && getTrack(track)->getOrientation(xi)==0) ||  (particle.type==0 && getTrack(track)->getOrientation(xi)==1) )
-                addRunLength(particle);
+                    addRunLength(particle);
             }
             // remove particle label when out of the bundle
             else if ((temp_2[2]<region[0] || temp_2[2]>=region[1]) && particle.labeled){
@@ -1720,7 +1720,7 @@ void Bundle::updateRunLength(const std::vector<int> & temp_1, const std::vector<
 void Bundle::removeRunLength(Particle &particle){
     int j=0;
     while(j<static_cast<int>(runLength.size()) && runLength[j][0]!=particle.index){
-       j++;
+        j++;
     }
     if (j<static_cast<int>(runLength.size()))   runLength.erase(runLength.begin()+j);
     else{
