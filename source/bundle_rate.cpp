@@ -1,4 +1,4 @@
- /*
+/*
  *this file constructs the transition rate for each event including hopping, track switching, turning, lane changes ect
  */
 #include <vector>
@@ -42,45 +42,45 @@ bool Bundle::isPlus(const int site, const int track){
 // also require they are in the bundle region characterized by bundleRegion_1 & bundleRegion_2
 bool Bundle::meetMinus(const int site, const int track, const int type){// site---initial site
     bool flag=false;
-        int orientation_1=bundleState[track].getOrientation(site);
-        int siteM;
-        if (type==1){// for dynein
-            int track_2=0;
-            siteM=site+orientation_1;
-            if ((max(siteM,site)<bundleRegion_1 || min(site,siteM)>bundleRegion_2)) flag=false;
-            else {
-              while (track_2<trackNum && !flag ){
-                  int ori_2=0;
-                  if (bundleState[track_2].plusEndLocations[0]<bundleState[track_2].minusEndLocations[0])
-                      ori_2=1;
+    int orientation_1=bundleState[track].getOrientation(site);
+    int siteM;
+    if (type==1){// for dynein
+        int track_2=0;
+        siteM=site+orientation_1;
+        if ((max(siteM,site)<bundleRegion_1 || min(site,siteM)>bundleRegion_2)) flag=false;
+        else {
+            while (track_2<trackNum && !flag ){
+                int ori_2=0;
+                if (bundleState[track_2].plusEndLocations[0]<bundleState[track_2].minusEndLocations[0])
+                    ori_2=1;
                 //int ori_2=bundleState[track_2].getOrientation(siteM);// newly added 27/11
                 int np=bundleState[track_2].plusEndLocations.size();//
                 if (track_2!=track && isMinus(siteM,track_2) && ori_2!=orientation_1 && np==1 && (site==getTrack(track_2)->xCoordinate-1 ||  site==getTrack(track_2)->xCoordinate+getTrack(track_2)->length)){
-                //if (isMinus(siteM,track_2) && ori_2!=orientation_1&& np==1 && (site>=getTrack(track_2)->xCoordinate-1 &&  site<=getTrack(track_2)->xCoordinate+getTrack(track_2)->length)){
-                //if (isMinus(siteM,track_2) && (site>=getTrack(track_2)->xCoordinate-1 &&  site<=getTrack(track_2)->xCoordinate+getTrack(track_2)->length)){
-                //if (isMinus(siteM,track_2) && (site<getTrack(track_2)->xCoordinate || site>=getTrack(track_2)->xCoordinate+getTrack(track_2)->length)){// amdend for one minus with two plus 13_04
+                    //if (isMinus(siteM,track_2) && ori_2!=orientation_1&& np==1 && (site>=getTrack(track_2)->xCoordinate-1 &&  site<=getTrack(track_2)->xCoordinate+getTrack(track_2)->length)){
+                    //if (isMinus(siteM,track_2) && (site>=getTrack(track_2)->xCoordinate-1 &&  site<=getTrack(track_2)->xCoordinate+getTrack(track_2)->length)){
+                    //if (isMinus(siteM,track_2) && (site<getTrack(track_2)->xCoordinate || site>=getTrack(track_2)->xCoordinate+getTrack(track_2)->length)){// amdend for one minus with two plus 13_04
                     flag=true;
                     break;
                 }
                 else track_2++;
-              }
             }
         }
-        else if(type==0){
-            int track_2=0;
-            siteM=site+1-orientation_1;
-            if ((max(siteM,site)<bundleRegion_1 || min(site,siteM)>bundleRegion_2)) flag=false;
-            else {
-              while (track_2<trackNum && !flag){
+    }
+    else if(type==0){
+        int track_2=0;
+        siteM=site+1-orientation_1;
+        if ((max(siteM,site)<bundleRegion_1 || min(site,siteM)>bundleRegion_2)) flag=false;
+        else {
+            while (track_2<trackNum && !flag){
                 //if (isMinus(siteM,track_2) && (site>=getTrack(track_2)->xCoordinate-1 &&  site<=getTrack(track_2)->xCoordinate+getTrack(track_2)->length)){
                 if (isMinus(siteM,track_2) && (site<getTrack(track_2)->xCoordinate || site>=getTrack(track_2)->xCoordinate+getTrack(track_2)->length)){
                     flag=true;
                     break;
                 }
                 else track_2++;
-              }
             }
         }
+    }
     return flag;
 
 }
@@ -91,15 +91,15 @@ bool Bundle::meetMinus(const int site, const int track, const int type){// site-
 bool Bundle::meetPlus(const int site, const int track, const int type){// site---initial site
     bool flag=false;
 
-        int orientation_1=bundleState[track].getOrientation(site);
-        int siteM;
+    int orientation_1=bundleState[track].getOrientation(site);
+    int siteM;
 
-        if (type==1){// for dynein
-            siteM=site+orientation_1;
-            int track_2=0;
-            if ((max(siteM,site)<bundleRegion_1 || min(site,siteM)>bundleRegion_2)) flag=false;
-            else {
-              while (track_2<trackNum && !flag){
+    if (type==1){// for dynein
+        siteM=site+orientation_1;
+        int track_2=0;
+        if ((max(siteM,site)<bundleRegion_1 || min(site,siteM)>bundleRegion_2)) flag=false;
+        else {
+            while (track_2<trackNum && !flag){
                 int ori_2=bundleState[track_2].getOrientation(siteM);// newly added
                 //if (isPlus(siteM,track_2) && (site<getTrack(track_2)->xCoordinate || site>=getTrack(track_2)->xCoordinate+getTrack(track_2)->length)){
                 if (isPlus(siteM,track_2) && ori_2==orientation_1 && (site<getTrack(track_2)->xCoordinate || site>=getTrack(track_2)->xCoordinate+getTrack(track_2)->length)){
@@ -107,24 +107,24 @@ bool Bundle::meetPlus(const int site, const int track, const int type){// site--
                     break;
                 }
                 else track_2++;
-              }
             }
         }
-        else if(type==0){
-            int track_2=0;
-            if ((max(siteM,site)<bundleRegion_1 || min(site,siteM)>bundleRegion_2)) return false;
-            else {
-              while (track_2<trackNum && !flag){
+    }
+    else if(type==0){
+        int track_2=0;
+        if ((max(siteM,site)<bundleRegion_1 || min(site,siteM)>bundleRegion_2)) return false;
+        else {
+            while (track_2<trackNum && !flag){
                 siteM=site+1-orientation_1;
                 if (isPlus(siteM,track_2) && (site<getTrack(track_2)->xCoordinate || site>=getTrack(track_2)->xCoordinate+getTrack(track_2)->length)){
                     flag=true;
                     break;
                 }
                 else track_2++;
-              }
             }
-       }
-       return flag;
+        }
+    }
+    return flag;
 }
 
 double Bundle::inhomoWk(const int site, const int track){// site=x/hs to the plus end // for type 0
@@ -144,9 +144,9 @@ double Bundle::inhomoWk(const int site, const int track){// site=x/hs to the plu
             else dis=plussite-1-site;
             int distance_temp=getTrack(track)->inhomoDistances.at(i);
             if((dis==0 && distance_temp>0)){// && (plussite==0 || plussite==1000)) {//if(dis<=distance_temp && distance_temp>0){
-               double tempr=pLoad*double(dyneinnum);//(2*double(dyneinnum)/double(distance_temp)-fluxin/velocity[0]*stepSize-double(dis)/double(distance_temp)*(2*double(dyneinnum)/double(distance_temp)-2*fluxin/velocity[0]*stepSize));
-               return tempr;
-               //return hs*pLoad*((2*dyneinnum-fluxin*distance_temp/(pk*hs))/distance_temp+fluxin/(pk*hs)-double(dis)*hs/(distance_temp*distance_temp)*(2*dyneinnum-fluxin*distance_temp/(pk*hs)));
+                double tempr=pLoad*double(dyneinnum);//(2*double(dyneinnum)/double(distance_temp)-fluxin/velocity[0]*stepSize-double(dis)/double(distance_temp)*(2*double(dyneinnum)/double(distance_temp)-2*fluxin/velocity[0]*stepSize));
+                return tempr;
+                //return hs*pLoad*((2*dyneinnum-fluxin*distance_temp/(pk*hs))/distance_temp+fluxin/(pk*hs)-double(dis)*hs/(distance_temp*distance_temp)*(2*dyneinnum-fluxin*distance_temp/(pk*hs)));
             }
             else if(distance_temp==0 && dis<=distance_temp){
                 double tempr=transitionRates.turning[0]*pLoad;
@@ -182,7 +182,7 @@ double Bundle::inhomoWk(const int site, const int track){// site=x/hs to the plu
     }
     else{
         if(isBundled(site))
-        return transitionRates.turning[1];//w_k;
+            return transitionRates.turning[1];//w_k;
         else
             return transitionRates.turning[0];
     }
@@ -221,93 +221,93 @@ double Bundle::getRateValue(const int type_to_move, const int type_to_be, const 
         }
         else{//inner part
             if(orientation==orientation_2 && orientation <2){
-            //step forward
-               if (type_to_move==type_to_be && abs(site_1-site_2)==1 && lane_1==lane_2){
-                  if (type_to_move==0 && ((orientation==0 && site_2>site_1)||(orientation==1 && site_2<site_1))){//kinesin               
-                      if (meetMinus(site_1,track,type_to_move)){
-                          return  transitionRates.forward[0]*transitionRates.forwardEnd[0];//p_rd;
-                      }
-                      else if(meetPlus(site_1,track,type_to_move)){
-                          return  transitionRates.forward[0]*transitionRates.forwardEnd[1];//p_rd;
-                      }
-                      else return transitionRates.forward[0];//p_k;
-                  }
-                  else if (type_to_move==1 && ((orientation==0 && site_2<site_1)||(orientation==1 && site_2>site_1))){//dynein
-                      if (meetPlus(site_1,track,type_to_move)){
-                          return  transitionRates.forward[1]*transitionRates.forwardEnd[2];
-                      }
-                      else if (meetMinus(site_1,track,type_to_move)){
-                          return  transitionRates.forward[1]*transitionRates.forwardEnd[3];
-                      }
-                      else  return transitionRates.forward[1];//p_d;
-                  }
-                  else return 0;
-               }
-            // type change between 0 and 1
-               else if (type_to_move!=type_to_be && site_1==site_2 && lane_1==lane_2){
-                  if (type_to_move==0 && type_to_be==1){//kineins ->dynein
-                    return inhomoWk(site_1,track);// may site dependent associate with dynein density
-                }
-                  else if (type_to_move==1 && type_to_be==0){//dynein-->kinesin                      
-                      if(isMinus(site_1,track))
-                          return transitionRates.turning[4];// inhomogeneity for dynein truning at minus end of its own track
-                      else if(meetMinus(site_1,track,type_to_move))
-                          return transitionRates.turning[5];// inhomogeneity for dynein truning at minus end of another track
-                      else if (meetPlus(site_1,track,type_to_move))//27_11_14 add inhomogeneous turning for dynein when meeting plus end of other MT of the same orientation
-                          return transitionRates.turning[6];
-                      else if(isBundled(site_1))
-                            return transitionRates.turning[3];//w_d;
-                      else return transitionRates.turning[2];
-                }
-                  else return 0;
-               }
-            // lane changes; keep the type, site forward
-               else if (type_to_move==type_to_be && abs(site_1-site_2)==1 && (abs(lane_1-lane_2)%bundleState[track].istate.size()==1 ||abs(lane_1-lane_2)%bundleState[track].istate.size()==bundleState[track].istate.size()-1)){
-                    if ((type_to_move==0) && ( ( (orientation==0) && (site_2>site_1) )||( (orientation==1) && (site_2<site_1) ) ) ){//kinesin
-                       Unit * target=getUnit(track,lane_1,site_2);
-                       if (accumulate(target->occupiedNum.begin(),target->occupiedNum.end(),0)==0 && target->unblocked){//unblocked
-                           if (meetMinus(site_1,track,type_to_move)){
-                               return  transitionRates.laneChange[0]*transitionRates.forwardEnd[0];
-                           }
-                           else if(meetPlus(site_1,track,type_to_move)){
-                               return  transitionRates.laneChange[0]*transitionRates.forwardEnd[1];
-                           }
-                           return transitionRates.laneChange[0];//lane_k;
-                       }
-                       else{
-                               if (meetMinus(site_1,track,type_to_move)){
-                                   return  transitionRates.laneChange[1]*transitionRates.forwardEnd[0];//p_rd;
-                               }
-                               else if (meetPlus(site_1,track,type_to_move)){
-                                 return  transitionRates.laneChange[1]*transitionRates.forwardEnd[1];//p_rd;
-                               }
-                               return transitionRates.laneChange[1];
-                           }
-                   }
+                //step forward
+                if (type_to_move==type_to_be && abs(site_1-site_2)==1 && lane_1==lane_2){
+                    if (type_to_move==0 && ((orientation==0 && site_2>site_1)||(orientation==1 && site_2<site_1))){//kinesin
+                        if (meetMinus(site_1,track,type_to_move)){
+                            return  transitionRates.forward[0]*transitionRates.forwardEnd[0];//p_rd;
+                        }
+                        else if(meetPlus(site_1,track,type_to_move)){
+                            return  transitionRates.forward[0]*transitionRates.forwardEnd[1];//p_rd;
+                        }
+                        else return transitionRates.forward[0];//p_k;
+                    }
                     else if (type_to_move==1 && ((orientation==0 && site_2<site_1)||(orientation==1 && site_2>site_1))){//dynein
-                       Unit * target=getUnit(track,lane_1,site_2);
-                       if (accumulate(target->occupiedNum.begin(),target->occupiedNum.end(),0)==0 && target->unblocked){//unblocked
-                           if (meetPlus(site_1,track,type_to_move)){
-                               return  transitionRates.laneChange[2]*transitionRates.forwardEnd[2];
-                           }
-                           else if(meetMinus(site_1,track,type_to_move)){
-                               return  transitionRates.laneChange[2]*transitionRates.forwardEnd[3];
-                           }
-                           return transitionRates.laneChange[2];//lane_d;
-                       }
-                       else{
-                           if (meetPlus(site_1,track,type_to_move)){
-                               return  transitionRates.laneChange[3]*transitionRates.forwardEnd[2];
-                           }
-                           else if(meetMinus(site_1,track,type_to_move)){
-                               return  transitionRates.laneChange[3]*transitionRates.forwardEnd[3];
-                           }
-                           return transitionRates.laneChange[3];//p_d/2;
-                       }
-                  }
+                        if (meetPlus(site_1,track,type_to_move)){
+                            return  transitionRates.forward[1]*transitionRates.forwardEnd[2];
+                        }
+                        else if (meetMinus(site_1,track,type_to_move)){
+                            return  transitionRates.forward[1]*transitionRates.forwardEnd[3];
+                        }
+                        else  return transitionRates.forward[1];//p_d;
+                    }
                     else return 0;
-               }
-               else return 0;
+                }
+                // type change between 0 and 1
+                else if (type_to_move!=type_to_be && site_1==site_2 && lane_1==lane_2){
+                    if (type_to_move==0 && type_to_be==1){//kineins ->dynein
+                        return inhomoWk(site_1,track);// may site dependent associate with dynein density
+                    }
+                    else if (type_to_move==1 && type_to_be==0){//dynein-->kinesin
+                        if(isMinus(site_1,track))
+                            return transitionRates.turning[4];// inhomogeneity for dynein truning at minus end of its own track
+                        else if(meetMinus(site_1,track,type_to_move))
+                            return transitionRates.turning[5];// inhomogeneity for dynein truning at minus end of another track
+                        else if (meetPlus(site_1,track,type_to_move))//27_11_14 add inhomogeneous turning for dynein when meeting plus end of other MT of the same orientation
+                            return transitionRates.turning[6];
+                        else if(isBundled(site_1))
+                            return transitionRates.turning[3];//w_d;
+                        else return transitionRates.turning[2];
+                    }
+                    else return 0;
+                }
+                // lane changes; keep the type, site forward
+                else if (type_to_move==type_to_be && abs(site_1-site_2)==1 && (abs(lane_1-lane_2)%bundleState[track].istate.size()==1 ||abs(lane_1-lane_2)%bundleState[track].istate.size()==bundleState[track].istate.size()-1)){
+                    if ((type_to_move==0) && ( ( (orientation==0) && (site_2>site_1) )||( (orientation==1) && (site_2<site_1) ) ) ){//kinesin
+                        Unit * target=getUnit(track,lane_1,site_2);
+                        if (accumulate(target->occupiedNum.begin(),target->occupiedNum.end(),0)==0 && target->unblocked){//unblocked
+                            if (meetMinus(site_1,track,type_to_move)){
+                                return  transitionRates.laneChange[0]*transitionRates.forwardEnd[0];
+                            }
+                            else if(meetPlus(site_1,track,type_to_move)){
+                                return  transitionRates.laneChange[0]*transitionRates.forwardEnd[1];
+                            }
+                            return transitionRates.laneChange[0];//lane_k;
+                        }
+                        else{
+                            if (meetMinus(site_1,track,type_to_move)){
+                                return  transitionRates.laneChange[1]*transitionRates.forwardEnd[0];//p_rd;
+                            }
+                            else if (meetPlus(site_1,track,type_to_move)){
+                                return  transitionRates.laneChange[1]*transitionRates.forwardEnd[1];//p_rd;
+                            }
+                            return transitionRates.laneChange[1];
+                        }
+                    }
+                    else if (type_to_move==1 && ((orientation==0 && site_2<site_1)||(orientation==1 && site_2>site_1))){//dynein
+                        Unit * target=getUnit(track,lane_1,site_2);
+                        if (accumulate(target->occupiedNum.begin(),target->occupiedNum.end(),0)==0 && target->unblocked){//unblocked
+                            if (meetPlus(site_1,track,type_to_move)){
+                                return  transitionRates.laneChange[2]*transitionRates.forwardEnd[2];
+                            }
+                            else if(meetMinus(site_1,track,type_to_move)){
+                                return  transitionRates.laneChange[2]*transitionRates.forwardEnd[3];
+                            }
+                            return transitionRates.laneChange[2];//lane_d;
+                        }
+                        else{
+                            if (meetPlus(site_1,track,type_to_move)){
+                                return  transitionRates.laneChange[3]*transitionRates.forwardEnd[2];
+                            }
+                            else if(meetMinus(site_1,track,type_to_move)){
+                                return  transitionRates.laneChange[3]*transitionRates.forwardEnd[3];
+                            }
+                            return transitionRates.laneChange[3];//p_d/2;
+                        }
+                    }
+                    else return 0;
+                }
+                else return 0;
             }
             else if(orientation!=orientation_2 && orientation_1<2 && orientation_2<2){
                 if (type_to_move==1 && type_to_be==0  && (site_1-site_2)*(orientation_1-orientation_2)<0){
@@ -333,7 +333,7 @@ double Bundle::getRateValue(const int type_to_move, const int type_to_be, const 
         Track * track_temp=getTrack(track_1);
         if (forwardsite>=track_temp->xCoordinate && forwardsite<track_temp->length+track_temp->xCoordinate){
             if (track_temp->getOrientation(forwardsite)!=track_temp->getOrientation(site_1))
-            possibleforward=false;
+                possibleforward=false;
         }
         else possibleforward=false;
 
@@ -341,22 +341,22 @@ double Bundle::getRateValue(const int type_to_move, const int type_to_be, const 
         if(std::max(p1,p2)==2){// at least one in the interior of bundle
             if (type_to_move==0 && type_to_be==1){
                 if ((site_1-site_2)*(orientation_1-orientation_2)>0 || (site_1==site_2 && orientation_1==orientation_2))
-                return transitionRates.trackSwitchAtInner[0]/m;
+                    return transitionRates.trackSwitchAtInner[0]/m;
                 else return 0;
             }
             else if (type_to_move==0 && type_to_be==0){
                 if ((orientation_1!=orientation_2 && site_1==site_2) || (orientation_1==orientation_2 && site_1-site_2==-1+2*orientation_1) )
-                return transitionRates.trackSwitchAtInner[1]/m;
+                    return transitionRates.trackSwitchAtInner[1]/m;
                 else return 0;
             }
             else if (type_to_move==1 && type_to_be==0){
                 if (((orientation_1-orientation_2)*(site_1-site_2)<0) || (site_1==site_2 && orientation_1==orientation_2))
-                return transitionRates.trackSwitchAtInner[2]/m;
+                    return transitionRates.trackSwitchAtInner[2]/m;
                 else return 0;
             }
             else if (type_to_move==1 && type_to_be==1) {
                 if((orientation_1!=orientation_2 && site_1==site_2)||(orientation_1==orientation_2 && site_1-site_2==1-2*orientation_1))
-                return transitionRates.trackSwitchAtInner[3]/m;
+                    return transitionRates.trackSwitchAtInner[3]/m;
                 else return 0;
             }
             else return 0;
@@ -374,7 +374,7 @@ double Bundle::getRateValue(const int type_to_move, const int type_to_be, const 
             }
         }
         else if (p1<2 && p2==0 && site_2==forwardsite){// out of ends
-        //else if (p1==1 && p2==0 && site_2==site_1+getForwardSite(orientation_1,type_to_move)){// out of ends
+            //else if (p1==1 && p2==0 && site_2==site_1+getForwardSite(orientation_1,type_to_move)){// out of ends
             if (orientation_1==orientation_2){
                 if(type_to_move==0 && type_to_be==0)   return transitionRates.trackSwitchAtEnd[2]/m;
                 else if(type_to_move==1 && type_to_be==1) return transitionRates.trackSwitchAtEnd[8]/m;
@@ -399,7 +399,7 @@ double Bundle::getRateValue(const int type_to_move, const int type_to_be, const 
             }
         }
         else //no track switching is possible
-           return 0;
-     }       
+            return 0;
+    }
 }
 

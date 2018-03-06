@@ -61,9 +61,9 @@ void Track::getXCoordinate(){
 
 int Track::getOrientation(const int site){//site can be -1 or maxLength for boundary
 
-      if (site<minusEndLocations[0]) return 1;
-      else if (site>=minusEndLocations.back()) return 0;
-      else return 2;// more than one minus ends.  not included yet
+    if (site<minusEndLocations[0]) return 1;
+    else if (site>=minusEndLocations.back()) return 0;
+    else return 2;// more than one minus ends.  not included yet
 
 }
 

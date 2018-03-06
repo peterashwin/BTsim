@@ -45,7 +45,7 @@ TransWindow::TransWindow(QWidget *parent) :QWidget(parent){
     QGridLayout *boundaryGrid=new QGridLayout;
     QGridLayout *setGrid=new QGridLayout;// set forward and turning rates
     QGridLayout *paraGrid=new QGridLayout;// for turning , forward and lane change rates
-   // QGridLayout *otherGrid=new QGridLayout;// other insinglegeneous rates particularly in multiple tracks
+    // QGridLayout *otherGrid=new QGridLayout;// other insinglegeneous rates particularly in multiple tracks
     QHBoxLayout *checkLayout=new QHBoxLayout;// for confirm, cancel buttons
     QGridLayout *switchGrid=new QGridLayout;//track associate
     QGridLayout *inhomoGrid=new QGridLayout;
@@ -80,7 +80,7 @@ TransWindow::TransWindow(QWidget *parent) :QWidget(parent){
     QVector<QLabel *>typeLabel_3(ntype*2);// for infLayout
     QVector<QLabel *>typeLabel_5(ntype);// for track switch grid
 
-   // infLayout
+    // infLayout
     for (int i=0;i<4;++i){
         typeLabel_3[i]=new QLabel();
         infoLayout->addWidget(typeLabel_3[i]);
@@ -161,8 +161,8 @@ TransWindow::TransWindow(QWidget *parent) :QWidget(parent){
     stepSizeEdit->setEnabled(true);
     bundleRegionEdit.resize(2);
     for (int i=0;i<2;i++){
-    bundleRegionEdit[i]=new QLineEdit("");
-    bundleRegionEdit[i]->setEnabled(true);
+        bundleRegionEdit[i]=new QLineEdit("");
+        bundleRegionEdit[i]->setEnabled(true);
     }
     bundleRegionEdit[0]->setText(QString::number(B1));
     bundleRegionEdit[1]->setText(QString::number(B2));
@@ -178,8 +178,8 @@ TransWindow::TransWindow(QWidget *parent) :QWidget(parent){
 
     setGrid->addWidget(setLabel,1,4,3,1);
     setGrid->addWidget(boundaryBox,1,5,3,3);
-   // setGrid->setColumnStretch(2, 1);
-   // setGrid->setColumnStretch(3, 4);
+    // setGrid->setColumnStretch(2, 1);
+    // setGrid->setColumnStretch(3, 4);
 
 
     paraGrid->addWidget(turnunbundledLabel,1,4);
@@ -219,7 +219,7 @@ TransWindow::TransWindow(QWidget *parent) :QWidget(parent){
     inhomoGrid->addWidget(turnInfLabel,1,5,3,3);
     inhomoGrid->addWidget(crossLabel,3,1,1,2);//inhomogeneous turning at minus end for dynein
     inhomoGrid->addWidget(crossEdit,3,3,1,2);//inhomogeneous turning at minus end for dynein
-  //  inhomoGrid->setColumnStretch(1, 1);
+    //  inhomoGrid->setColumnStretch(1, 1);
     //inhomoGrid->setColumnStretch(4, 5);
 
     for (int i=0;i<ntype;i++){
@@ -253,7 +253,7 @@ TransWindow::TransWindow(QWidget *parent) :QWidget(parent){
         paraGrid->addWidget(laneChangeEdit[i*2],i+2,7);//unblocked
         paraGrid->addWidget(laneChangeEdit[i*2+1],i+2,8);//blocked
     }
-   for (int i=0;i<forwardEndEdit.size();i++) forwardEndEdit[i]=new QLineEdit("");
+    for (int i=0;i<forwardEndEdit.size();i++) forwardEndEdit[i]=new QLineEdit("");
     for (int i=0;i<switchInnerEdit.size();i++) switchInnerEdit[i]=new QLineEdit("");
     for (int i=0;i<switchEndEdit.size();i++) switchEndEdit[i]=new QLineEdit("");
 
@@ -277,7 +277,7 @@ TransWindow::TransWindow(QWidget *parent) :QWidget(parent){
         switchGrid->addWidget(forwardEndEdit[i*2],4+i,4);
         switchGrid->addWidget(forwardEndEdit[i*2+1],4+i,8);
         for (int j=0;j<6;j++)
-        switchGrid->addWidget(switchEndEdit[i*6+j],4+i,5*(j<3)+6*(j>=3)+j);
+            switchGrid->addWidget(switchEndEdit[i*6+j],4+i,5*(j<3)+6*(j>=3)+j);
     }
 
     dataBox->setLayout(velocityGrid);
@@ -292,7 +292,7 @@ TransWindow::TransWindow(QWidget *parent) :QWidget(parent){
     mainLayout->addWidget(dataBox);
     mainLayout->addLayout(setGrid);
     mainLayout->addWidget(singleRateBox);
-   // mainLayout->addWidget(bundleRateBox);
+    // mainLayout->addWidget(bundleRateBox);
     mainLayout->addWidget(switchBox);
     mainLayout->addLayout(checkLayout);
     setLayout(mainLayout);
@@ -327,24 +327,24 @@ void TransWindow::getNewRates(){
         worker->bundle->transitionRates.laneChange[i*2+1]=laneChangeEdit[i*2+1]->text().toDouble();
         worker->bundle->transitionRates.turning[i*2]=turnuniEdit[i]->text().toDouble();
         worker->bundle->transitionRates.turning[i*2+1]=turnbiEdit[i]->text().toDouble();
-       for (int tr=0;tr<worker->bundle->trackNum;tr++){
-           worker->bundle->transitionRates.boundaryIn[i][tr]=injectEdit[i]->text().toDouble();
-           worker->bundle->transitionRates.boundaryOut[i][tr]=exitEdit[i]->text().toDouble();
-       }
+        for (int tr=0;tr<worker->bundle->trackNum;tr++){
+            worker->bundle->transitionRates.boundaryIn[i][tr]=injectEdit[i]->text().toDouble();
+            worker->bundle->transitionRates.boundaryOut[i][tr]=exitEdit[i]->text().toDouble();
+        }
     }
 
     worker->bundle->transitionRates.turning[4]=turninhomoEdit[0]->text().toDouble();
     worker->bundle->transitionRates.turning[5]=turninhomoEdit[1]->text().toDouble();
     worker->bundle->transitionRates.turning[6]=turninhomoEdit[2]->text().toDouble();
     for (int i=0;i<forwardEndEdit.size();i++){
-         worker->bundle->transitionRates.forwardEnd[i]=forwardEndEdit[i]->text().toDouble();
+        worker->bundle->transitionRates.forwardEnd[i]=forwardEndEdit[i]->text().toDouble();
     }
 
     for (int i=0;i<switchEndEdit.size();i++){
-         worker->bundle->transitionRates.trackSwitchAtEnd[i]=switchEndEdit[i]->text().toDouble();
+        worker->bundle->transitionRates.trackSwitchAtEnd[i]=switchEndEdit[i]->text().toDouble();
     }
     for (int i=0;i<switchInnerEdit.size();i++){
-         worker->bundle->transitionRates.trackSwitchAtInner[i]=switchInnerEdit[i]->text().toDouble();
+        worker->bundle->transitionRates.trackSwitchAtInner[i]=switchInnerEdit[i]->text().toDouble();
     }
     if (inhomoPlusCheck->isChecked()) {
         //ploadEdit->setEnabled(true);
@@ -386,7 +386,7 @@ void TransWindow::getForward(){
 
 
 void TransWindow::getTurning(){    
-   // setEdit->setText("turning rate is velocity over corresponding runlength \n");
+    // setEdit->setText("turning rate is velocity over corresponding runlength \n");
     for (int i=0;i<turnbiEdit.size();++i){
         turnbiEdit[i]->setText(QString::number(velocityEdit[i]->text().toDouble()/runBundledEdit[i]->text().toDouble()));
         turnuniEdit[i]->setText(QString::number(velocityEdit[i]->text().toDouble()/runUnbundledEdit[i]->text().toDouble()));
@@ -436,13 +436,13 @@ void TransWindow::setOldRates(){
     turninhomoEdit[1]->setText(QString::number(worker->bundle->transitionRates.turning[5]));
     turninhomoEdit[2]->setText(QString::number(worker->bundle->transitionRates.turning[6]));
     for (int i=0;i<forwardEndEdit.size();i++){
-         forwardEndEdit[i]->setText(QString::number(worker->bundle->transitionRates.forwardEnd[i]));
+        forwardEndEdit[i]->setText(QString::number(worker->bundle->transitionRates.forwardEnd[i]));
     }
     for (int i=0;i<switchEndEdit.size();i++){
-         switchEndEdit[i]->setText(QString::number(worker->bundle->transitionRates.trackSwitchAtEnd[i]));
+        switchEndEdit[i]->setText(QString::number(worker->bundle->transitionRates.trackSwitchAtEnd[i]));
     }
     for (int i=0;i<switchInnerEdit.size();i++){
-         switchInnerEdit[i]->setText(QString::number(worker->bundle->transitionRates.trackSwitchAtInner[i]));
+        switchInnerEdit[i]->setText(QString::number(worker->bundle->transitionRates.trackSwitchAtInner[i]));
     }
     ploadEdit->setText(QString::number(worker->bundle->pLoad));
     if (worker->bundle->flagInhomo) ploadEdit->setEnabled(true);
@@ -486,7 +486,7 @@ void TransWindow::checkRates(){
 
 
 void TransWindow::closeEvent(QCloseEvent *){
-   bundleLengthMessage();
+    bundleLengthMessage();
 }
 
 void TransWindow::inhomoPlusChanged(){

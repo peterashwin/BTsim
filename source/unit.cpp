@@ -7,8 +7,8 @@
 #include "unit.h"
 
 Unit::Unit(const std::vector<int> & Ini_occupiedNum)
-: occupiedNum(Ini_occupiedNum){unblocked=true;typeNum=occupiedNum.size();
-}
+    : occupiedNum(Ini_occupiedNum){unblocked=true;typeNum=occupiedNum.size();
+                                  }
 
 Unit::Unit(const Unit & copyUnit){
     occupiedNum=copyUnit.occupiedNum;

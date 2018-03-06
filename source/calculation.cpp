@@ -82,44 +82,44 @@ int sum(vector<vector<vector<vector<int> > > > & state){
 }
 
 void writeToFile1(const vector<int> & vectors, char * pathname, char *filename){
-     FILE * f;
-     char filename_4[256];
-     sprintf(filename_4,"%s/%s",pathname,filename);
-     f=fopen(filename_4,"w");
-     for (vector<int>::size_type s=0;s<vectors.size();s++){
-                fprintf(f,"%d ",vectors[s]);
-     }
-     fclose(f);
+    FILE * f;
+    char filename_4[256];
+    sprintf(filename_4,"%s/%s",pathname,filename);
+    f=fopen(filename_4,"w");
+    for (vector<int>::size_type s=0;s<vectors.size();s++){
+        fprintf(f,"%d ",vectors[s]);
+    }
+    fclose(f);
 }
 
 void writeToFile2(const vector<vector<double> > & vectors, char * pathname, char *filename){
-     FILE * f_dencur;
-     char filename_4[256];
-     sprintf(filename_4,"%s/%s",pathname,filename);
-     f_dencur=fopen(filename_4,"w");
-     for (vector<vector<double> >::size_type x=0;x<vectors.size();x++){
-         for (vector<double>::size_type y=0;y<vectors[0].size();y++){
-             fprintf(f_dencur,"%f ",vectors[x][y]);
-         }
-         fprintf(f_dencur,"\n");
-     }
-     fclose(f_dencur);
+    FILE * f_dencur;
+    char filename_4[256];
+    sprintf(filename_4,"%s/%s",pathname,filename);
+    f_dencur=fopen(filename_4,"w");
+    for (vector<vector<double> >::size_type x=0;x<vectors.size();x++){
+        for (vector<double>::size_type y=0;y<vectors[0].size();y++){
+            fprintf(f_dencur,"%f ",vectors[x][y]);
+        }
+        fprintf(f_dencur,"\n");
+    }
+    fclose(f_dencur);
 }
 
 void writeToFile3(const vector<vector<vector<double> > >& vectors, char * pathname, char *filename){
-     FILE * f;
-     char filename_4[256];
-     sprintf(filename_4,"%s/%s",pathname,filename);
-     f=fopen(filename_4,"w");
-     for (vector<vector<vector<double> > >::size_type x=0;x<vectors.size();x++){
-         for (vector<vector<double> >::size_type y=0;y<vectors[0].size();y++){
-             for (vector<double>::size_type s=0;s<vectors[0][0].size();s++){
-                 fprintf(f,"%f ",vectors[x][y][s]);
-             }
-             fprintf(f,"\n");
-         }
-     }
-     fclose(f);
+    FILE * f;
+    char filename_4[256];
+    sprintf(filename_4,"%s/%s",pathname,filename);
+    f=fopen(filename_4,"w");
+    for (vector<vector<vector<double> > >::size_type x=0;x<vectors.size();x++){
+        for (vector<vector<double> >::size_type y=0;y<vectors[0].size();y++){
+            for (vector<double>::size_type s=0;s<vectors[0][0].size();s++){
+                fprintf(f,"%f ",vectors[x][y][s]);
+            }
+            fprintf(f,"\n");
+        }
+    }
+    fclose(f);
 }
 
 void evendistribution(vector<double> & distribution, const int n, const int N){
